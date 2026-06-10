@@ -1,10 +1,10 @@
-  <div align="center">
+<div align="center">
 
 <img src="app/src/renderer/assets/icons/full/logo.png" width="96" alt="AkyLauncher logo" />
 
 # AkyLauncher
 
-**Minecraft-лаунчер - уникальный и красивый.**
+**Minecraft-лаунчер, который выглядит как продукт, а не как мод-меню.**
 
 Оффлайн-аккаунты · Fabric/Quilt в один клик · Моды с Modrinth · ИИ-диагностика крашей
 
@@ -34,6 +34,7 @@
 | ⬛ **ИИ-диагност** | вставь бесплатный ключ [Groq](https://console.groq.com) — и лаунчер объяснит любой краш: диагноз, причина, шаги решения |
 | ⬛ **Живая консоль** | стрим лога процесса, фильтры INFO/WARN/ERROR, kill process |
 | ⬛ **Обновления** | лаунчер сам проверяет новые релизы на GitHub |
+| ⬛ **Discord Rich Presence** | статус «Играет · профиль · версия · моды» с кнопкой в [телеграм-канал](https://t.me/AkyLauncher) |
 
 ## Скриншоты
 
@@ -70,6 +71,7 @@ npm run dist:linux   # AppImage
 
 `Electron` + `React` + `TypeScript` · бэкенд — **Node.js** (main-process): загрузчик с пулом потоков и докачкой, типизированный IPC-контракт, zod-валидация всех конфигов и сетевых ответов, `contextIsolation: true`.
 
+Дизайн-система **RAW BLOCK**: один акцентный цвет, сетка 8px, нулевые радиусы, моноширинный шрифт для машинных данных, ноль градиентов и теней.
 
 ## Разработка
 
@@ -84,5 +86,5 @@ npm run preview:web  # автономное веб-превью UI в ../preview
 AkyLauncher **не распространяет файлы игры** — всё скачивается с официальных серверов Mojang, Fabric, Adoptium и Modrinth. Оффлайн-режим лишь пропускает вход в Microsoft-аккаунт. Если игра тебе нравится — [купи её](https://www.minecraft.net).
 
 <div align="center">
-<sub>Сделано с любовью · Сделано AkyRayy</sub>
+<sub>RAW BLOCK design · сделано без фиолетовых градиентов</sub>
 </div>

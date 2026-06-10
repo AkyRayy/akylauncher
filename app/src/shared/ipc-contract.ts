@@ -61,6 +61,8 @@ export interface AkyApi {
 
   'app:openDir': (args: { instanceId?: string }) => Promise<void>;
   'app:checkUpdate': () => Promise<UpdateInfo>;
+  'app:openTelegram': () => Promise<void>;
+  'app:presenceSelect': (args: { instanceId: string | null }) => Promise<void>;
 
   'win:minimize': () => Promise<void>;
   'win:maximize': () => Promise<void>;
