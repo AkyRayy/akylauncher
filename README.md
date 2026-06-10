@@ -1,4 +1,4 @@
-<div align="center">
+  <div align="center">
 
 <img src="app/src/renderer/assets/icons/full/logo.png" width="96" alt="AkyLauncher logo" />
 
@@ -70,7 +70,6 @@ npm run dist:linux   # AppImage
 
 `Electron` + `React` + `TypeScript` · бэкенд — **Node.js** (main-process): загрузчик с пулом потоков и докачкой, типизированный IPC-контракт, zod-валидация всех конфигов и сетевых ответов, `contextIsolation: true`.
 
-Дизайн-система **RAW BLOCK**: один акцентный цвет, сетка 8px, нулевые радиусы, моноширинный шрифт для машинных данных, ноль градиентов и теней.
 
 ## Разработка
 
@@ -85,5 +84,5 @@ npm run preview:web  # автономное веб-превью UI в ../preview
 AkyLauncher **не распространяет файлы игры** — всё скачивается с официальных серверов Mojang, Fabric, Adoptium и Modrinth. Оффлайн-режим лишь пропускает вход в Microsoft-аккаунт. Если игра тебе нравится — [купи её](https://www.minecraft.net).
 
 <div align="center">
-<sub>RAW BLOCK design · сделано без фиолетовых градиентов</sub>
+<sub>Сделано с любовью · Сделано AkyRayy</sub>
 </div>
