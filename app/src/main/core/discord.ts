@@ -1,7 +1,7 @@
 import { Client } from '@xhayper/discord-rpc';
 import type { GameState, InstanceConfig } from '@shared/types';
 
-export const DISCORD_CLIENT_ID = '1391234567890123456';
+export const DISCORD_CLIENT_ID = '1514371704447701062';
 export const TELEGRAM_URL = 'https://t.me/AkyLauncher';
 
 let client: Client | null = null;
