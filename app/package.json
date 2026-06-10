@@ -1,0 +1,38 @@
+{
+  "name": "akylauncher",
+  "version": "1.0.0-beta",
+  "description": "AkyLauncher — Minecraft launcher. RAW BLOCK design system.",
+  "main": "out/main/index.js",
+  "private": true,
+  "scripts": {
+    "dev": "electron-vite dev",
+    "build": "electron-vite build",
+    "dist:win": "electron-vite build && electron-builder --win",
+    "dist:linux": "electron-vite build && electron-builder --linux",
+    "preview:web": "vite build --config vite.preview.config.ts",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "zod": "^3.23.8",
+    "zustand": "^4.5.2"
+  },
+  "devDependencies": {
+    "@fontsource/inter": "^5.0.18",
+    "@fontsource/jetbrains-mono": "^5.0.20",
+    "@fontsource/space-grotesk": "^5.0.17",
+    "@types/node": "^20.12.12",
+    "@types/react": "^18.3.2",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.0",
+    "electron": "^31.0.0",
+    "electron-builder": "^24.13.3",
+    "electron-vite": "^2.2.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "typescript": "^5.4.5",
+    "vite": "^5.2.11",
+    "vite-plugin-singlefile": "^2.0.1",
+    "vitest": "^1.6.0"
+  }
+}

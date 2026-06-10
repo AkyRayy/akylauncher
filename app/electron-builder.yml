@@ -1,0 +1,17 @@
+appId: dev.aky.launcher
+productName: AkyLauncher
+directories:
+  output: release
+files:
+  - out/**
+  - resources/**
+win:
+  target: nsis
+  icon: resources/icon.ico
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+linux:
+  target: AppImage
+  icon: resources/icon.png
+  category: Game
