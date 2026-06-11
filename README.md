@@ -86,5 +86,5 @@ npm run preview:web  # автономное веб-превью UI в ../preview
 AkyLauncher **не распространяет файлы игры** — всё скачивается с официальных серверов Mojang, Fabric, Adoptium и Modrinth. Оффлайн-режим лишь пропускает вход в Microsoft-аккаунт. Если игра тебе нравится — [купи её](https://www.minecraft.net).
 
 <div align="center">
-<sub>RAW BLOCK design · сделано без фиолетовых градиентов</sub>
+<sub>Сделано с любовью · Сделано @akylauncher </sub>
 </div>
