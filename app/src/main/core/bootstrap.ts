@@ -7,7 +7,6 @@ import { spawnGame } from './launch';
 import { updateInstance } from './instances';
 import { getSettings } from './settings';
 import { ensureAuthlibInjector, elyJvmArgs } from './authlib';
-import { updatePresence } from './discord';
 import type { Session } from './auth';
 
 export interface BootstrapIo {
@@ -91,15 +90,7 @@ export async function bootstrapAndLaunch(
   }
 
   log(io, 'INFO', 'собираю аргументы и запускаю jvm');
-  const finalInst = inst;
-  const pid = await spawnGame(
-    inst, vjson, launchId, session, java.path, io.onLog,
-    (s) => {
-      updatePresence({ game: s, instance: finalInst, nickname: session.nickname });
-      io.onState(s);
-    },
-    extraJvmArgs
-  );
+  const pid = await spawnGame(inst, vjson, launchId, session, java.path, io.onLog, io.onState, extraJvmArgs);
   log(io, 'INFO', `process started · pid ${pid}`);
   await updateInstance(inst.id, { lastPlayedAt: new Date().toISOString() });
   return pid;

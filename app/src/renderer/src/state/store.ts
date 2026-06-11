@@ -45,10 +45,7 @@ export const useApp = create<AppState>((set, get) => ({
   error: null,
 
   setScreen: (screen) => set({ screen }),
-  selectInstance: (selectedInstanceId) => {
-    set({ selectedInstanceId });
-    void aky.invoke('app:presenceSelect', { instanceId: selectedInstanceId });
-  },
+  selectInstance: (selectedInstanceId) => set({ selectedInstanceId }),
   setError: (error) => set({ error }),
   clearLog: () => set({ log: [] }),
 
@@ -59,9 +56,12 @@ export const useApp = create<AppState>((set, get) => ({
       aky.invoke('settings:get')
     ]);
     const sel = get().selectedInstanceId;
-    const nextSel = sel && instances.some((i) => i.id === sel) ? sel : instances[0]?.id ?? null;
-    set({ instances, profiles, settings, selectedInstanceId: nextSel });
-    void aky.invoke('app:presenceSelect', { instanceId: nextSel });
+    set({
+      instances,
+      profiles,
+      settings,
+      selectedInstanceId: sel && instances.some((i) => i.id === sel) ? sel : instances[0]?.id ?? null
+    });
   },
 
   init: async () => {

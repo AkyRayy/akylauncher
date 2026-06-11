@@ -1,7 +1,6 @@
 import { app, BrowserWindow, shell } from 'electron';
 import { join } from 'node:path';
 import { registerIpc } from './ipc/router';
-import { initDiscordRpc, destroyDiscordRpc } from './core/discord';
 
 let win: BrowserWindow | null = null;
 
@@ -38,13 +37,11 @@ function createWindow(): void {
 app.whenReady().then(() => {
   createWindow();
   if (win) registerIpc(win);
-  initDiscordRpc();
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
   });
 });
 
 app.on('window-all-closed', () => {
-  void destroyDiscordRpc();
   if (process.platform !== 'darwin') app.quit();
 });
