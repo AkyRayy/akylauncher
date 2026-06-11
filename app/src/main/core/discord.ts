@@ -4,10 +4,30 @@ import type { GameState, InstanceConfig } from '@shared/types';
 export const DISCORD_CLIENT_ID = '1514371704447701062';
 export const TELEGRAM_URL = 'https://t.me/AkyLauncher';
 
+export type RpcStatus = 'connecting' | 'connected' | 'unavailable';
+
 let client: Client | null = null;
 let connected = false;
 let retryTimer: NodeJS.Timeout | null = null;
 let launcherStartedAt = Date.now();
+let status: RpcStatus = 'connecting';
+let lastError: string | null = null;
+let statusListener: ((s: RpcStatus, err: string | null) => void) | null = null;
+
+function setStatus(next: RpcStatus, err: string | null = null): void {
+  status = next;
+  lastError = err;
+  statusListener?.(next, err);
+}
+
+export function onRpcStatus(cb: (s: RpcStatus, err: string | null) => void): void {
+  statusListener = cb;
+  cb(status, lastError);
+}
+
+export function rpcStatus(): { status: RpcStatus; error: string | null } {
+  return { status, error: lastError };
+}
 
 interface PresenceCtx {
   game: GameState;
@@ -50,8 +70,9 @@ async function push(): Promise<void> {
   if (!client || !connected) return;
   try {
     await client.user?.setActivity(buildActivity(lastCtx));
-  } catch {
+  } catch (err) {
     connected = false;
+    setStatus('unavailable', `setActivity · ${(err as Error).message}`);
     scheduleRetry();
   }
 }
@@ -61,24 +82,28 @@ function scheduleRetry(): void {
   retryTimer = setTimeout(() => {
     retryTimer = null;
     void connect();
-  }, 30_000);
+  }, 15_000);
 }
 
 async function connect(): Promise<void> {
+  setStatus('connecting');
   try {
     client = new Client({ clientId: DISCORD_CLIENT_ID });
     client.on('ready', () => {
       connected = true;
+      setStatus('connected');
       void push();
     });
     client.on('disconnected', () => {
       connected = false;
+      setStatus('unavailable', 'discord отключился');
       scheduleRetry();
     });
     await client.login();
-  } catch {
+  } catch (err) {
     connected = false;
     client = null;
+    setStatus('unavailable', (err as Error).message || 'discord не запущен');
     scheduleRetry();
   }
 }

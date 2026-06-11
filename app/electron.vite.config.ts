@@ -4,7 +4,12 @@ import { resolve } from 'node:path';
 
 export default defineConfig({
   main: {
-    build: { outDir: 'out/main' },
+    build: {
+      outDir: 'out/main',
+      rollupOptions: {
+        external: ['utf-8-validate', 'bufferutil']
+      }
+    },
     resolve: { alias: { '@shared': resolve(__dirname, 'src/shared') } }
   },
   preload: {

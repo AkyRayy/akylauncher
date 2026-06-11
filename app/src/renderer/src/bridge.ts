@@ -242,6 +242,13 @@ const mockBridge: AkyBridge = {
         return Promise.resolve(undefined);
       case 'app:checkUpdate':
         return Promise.resolve({ available: true, current: '1.0.0-beta', latest: 'v1.1.0', url: 'https://github.com/AkyRayy/akylauncher/releases/latest' });
+      case 'app:openTelegram':
+        window.open('https://t.me/AkyLauncher', '_blank');
+        return Promise.resolve(undefined);
+      case 'app:presenceSelect':
+        return Promise.resolve(undefined);
+      case 'app:rpcStatus':
+        return Promise.resolve({ status: 'connected', error: null });
       case 'java:list':
         return Promise.resolve([
           { path: 'C:\\Program Files\\Java\\jdk-21\\bin\\java.exe', version: '21.0.3', major: 21, source: 'system' },

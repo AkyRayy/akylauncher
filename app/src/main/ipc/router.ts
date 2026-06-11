@@ -12,6 +12,7 @@ import { dirs } from '../core/paths';
 import { pickAndSetSkin, getSkinDataUrl, clearSkin } from '../core/skins';
 import { checkUpdate } from '../core/updater';
 import { zipDirectory } from '../core/zip';
+import { updatePresence, TELEGRAM_URL, rpcStatus, onRpcStatus } from '../core/discord';
 import { shell, dialog } from 'electron';
 import { bootstrapAndLaunch } from '../core/bootstrap';
 import { analyzeLog } from '../core/ai';
@@ -142,6 +143,28 @@ export function registerIpc(win: BrowserWindow): void {
     await shell.openPath(instanceId ? dirs.instanceDir(instanceId) : dirs.root());
   });
   handle('app:checkUpdate', () => checkUpdate());
+  handle('app:openTelegram', async () => {
+    await shell.openExternal(TELEGRAM_URL);
+  });
+  handle('app:presenceSelect', async ({ instanceId }) => {
+    const inst = instanceId ? (await listInstances()).find((i) => i.id === instanceId) ?? null : null;
+    const profile = await activeProfile();
+    updatePresence({ instance: inst, nickname: profile?.nickname ?? null });
+  });
+  handle('app:rpcStatus', async () => rpcStatus());
+
+  onRpcStatus((s: 'connecting' | 'connected' | 'unavailable', err: string | null) => {
+    emit('evt:game-log', {
+      ts: Date.now(),
+      level: s === 'connected' ? 'INFO' : s === 'unavailable' ? 'WARN' : 'DEBUG',
+      text:
+        s === 'connected'
+          ? 'discord rpc · подключён'
+          : s === 'unavailable'
+            ? `discord rpc · недоступен · ${err ?? 'нет ответа'} · повтор через 15с`
+            : 'discord rpc · подключаюсь'
+    });
+  });
 
   handle('win:minimize', async () => win.minimize());
   handle('win:maximize', async () => (win.isMaximized() ? win.unmaximize() : win.maximize()));
